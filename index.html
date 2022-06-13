@@ -13,64 +13,58 @@
   <main class="content">
     <section class="profile">
       <div class="profile__data">
-        <div class="profile__avatar">
-          <img class="profile__image" src="images/avatar.jpg" alt="Портрет Жак-Ив Кусто">
-        </div>
+        <img class="profile__image" src="images/avatar.jpg" alt="Портрет Жак-Ив Кусто">
         <div class="profile__text">
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button">
-              <img src="images/icon/edit.svg" alt="">
-            </button>
+            <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
           </div>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
       </div>
-      <button class="profile__add-button">
-        <img src="images/icon/add.svg" alt="">
-      </button>
+      <button class="profile__add-button" type="button" aria-label="Добавить"></button>
     </section>
     <section class="cards">
       <div class="cards__item">
-        <img class="cards__image" src="images/elbrus.jpg" alt="">
+        <img class="cards__image" src="images/elbrus.jpg" alt="Гора Эльбрус">
         <div class="cards__info">
           <h2 class="cards__location">Эльбрус</h2>
-          <div class="cards__icon"></div>
+          <button class="cards__icon cards__icon_active" type="button" aria-label="Like it"></button>
         </div>
       </div>
       <div class="cards__item">
-        <img class="cards__image" src="images/beluha.jpg" alt="">
+        <img class="cards__image" src="images/beluha.jpg" alt="Гора Белуха">
         <div class="cards__info">
           <h2 class="cards__location">Белуха</h2>
-          <div class="cards__icon"></div>
+          <button class="cards__icon" type="button" aria-label="Like it"></button>
         </div>
       </div>
       <div class="cards__item">
-        <img class="cards__image" src="images/kazbeg.jpg" alt="">
+        <img class="cards__image" src="images/kazbeg.jpg" alt="Гора Казбег">
         <div class="cards__info">
           <h2 class="cards__location">Казбег</h2>
-          <div class="cards__icon"></div>
+          <button class="cards__icon" type="button" aria-label="Like it"></button>
         </div>
       </div>
       <div class="cards__item">
-        <img class="cards__image" src="images/kljuchevskaja-sopka.jpg" alt="">
+        <img class="cards__image" src="images/kljuchevskaja-sopka.jpg" alt="Ключевская сопка">
         <div class="cards__info">
           <h2 class="cards__location">Ключевская сопка</h2>
-          <div class="cards__icon"></div>
+          <button class="cards__icon" type="button" aria-label="Like it"></button>
         </div>
       </div>
       <div class="cards__item">
-        <img class="cards__image" src="images/koshtan-tau.jpg" alt="">
+        <img class="cards__image" src="images/koshtan-tau.jpg" alt="Гора Коштан-Тау">
         <div class="cards__info">
           <h2 class="cards__location">Коштан - Тау</h2>
-          <div class="cards__icon"></div>
+          <button class="cards__icon" type="button" aria-label="Like it"></button>
         </div>
       </div>
       <div class="cards__item">
-        <img class="cards__image" src="images/munku-sardyk.jpg" alt="">
+        <img class="cards__image" src="images/munku-sardyk.jpg" alt="Гора Мунку-Сардык">
         <div class="cards__info">
           <h2 class="cards__location">Мунку-Сардык</h2>
-          <div class="cards__icon"></div>
+          <button class="cards__icon" type="button" aria-label="Like it"></button>
         </div>
       </div>
     </section>
@@ -78,16 +72,15 @@
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
-  <div class="popup popup_opened">
-    <div class="popup__overlay"></div>
+  <div class="popup popup_opene">
     <div class="popup__container">
-      <form class="form">
+      <form class="form" name="popupForm">
         <h2 class="form__title">Редактировать профиль</h2>
-        <input type="text" name="Имя" class="form__input" value="Жак-Ив Кусто" required>
-        <input type="text" name="Описание" class="form__input" value="Жак-Ив Кусто" required>
-        <button type="submit" value="Отправить на сервер" class="form__button">Отправить</button>
+        <input type="text" name="name" class="form__input" value="" required>
+        <input type="text" name="about" class="form__input" value="" required>
+        <button type="submit" value="Отправить на сервер" class="form__button" aria-label="Сохранить">Сохранить</button>
       </form>
-      <button class="popup__button-close"></button>
+      <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
     </div>
   </div>
 </body>
