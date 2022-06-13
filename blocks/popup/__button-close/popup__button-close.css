@@ -8,6 +8,7 @@
   width: 32px;
   height: 32px;
   border: none;
+  cursor: pointer;
 }
 
 .popup__button-close:hover {

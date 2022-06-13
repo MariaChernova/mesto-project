@@ -7,6 +7,9 @@
   background-color: transparent;
   border: 0;
   padding: 0;
+  background-image: url(../../../images/icon/edit.svg);
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .profile__edit-button:hover {
