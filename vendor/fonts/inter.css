@@ -1,6 +1,7 @@
 @font-face {
   src: url(../../fonts/inter/regular.woff2);
   font-family: 'Inter';
+  font-weight: normal;
 }
 
 @font-face {
