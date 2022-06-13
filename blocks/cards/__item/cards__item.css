@@ -1,6 +1,10 @@
 .cards__item {
+  display: flex;
+  flex-direction: column;
   background-color: #FFFFFF;
   color: #000000;
   border-radius: 10px;
   overflow: hidden;
+  width: 282px;
+  height: 361px;
 }
