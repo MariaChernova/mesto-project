@@ -1,0 +1,9 @@
+.cards__location {
+  font-weight: 900;
+  font-size: 24px;
+  width: 200px;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

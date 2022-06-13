@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+  <link rel="stylesheet" href="pages/index.css">
+</head>
+<body class="page">
+  <header class="header">
+    <img class="header__logo" src="images/logo/logo.svg" alt="Логотип">
+    <div class="header__line"></div>
+  </header>
+  <main class="content">
+    <div class="profile">
+      <div class="profile__data">
+        <div class="profile__avatar">
+          <img class="profile__image" src="images/avatar.jpg" alt="Портрет Жак-Ив Кусто">
+        </div>
+        <div class="profile__text">
+          <div class="profile__info">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button">
+              <img src="images/icon/edit.svg" alt="">
+            </button>
+          </div>
+          <p class="profile__subtitle">Исследователь океана</p>
+        </div>
+      </div>
+      <button class="profile__add-button">
+        <img src="images/icon/add.svg" alt="">
+      </button>
+    </div>
+    <div class="cards">
+      <div class="cards__item">
+        <img class="cards__image" src="images/elbrus.jpg" alt="">
+        <div class="cards__info">
+          <h2 class="cards__location">Эльбрус</h2>
+          <div class="cards__icon"></div>
+        </div>
+      </div>
+      <div class="cards__item">
+        <img class="cards__image" src="images/beluha.jpg" alt="">
+        <div class="cards__info">
+          <h2 class="cards__location">Белуха</h2>
+          <div class="cards__icon"></div>
+        </div>
+      </div>
+      <div class="cards__item">
+        <img class="cards__image" src="images/kazbeg.jpg" alt="">
+        <div class="cards__info">
+          <h2 class="cards__location">Казбег</h2>
+          <div class="cards__icon"></div>
+        </div>
+      </div>
+      <div class="cards__item">
+        <img class="cards__image" src="images/kljuchevskaja-sopka.jpg" alt="">
+        <div class="cards__info">
+          <h2 class="cards__location">Ключевская сопка</h2>
+          <div class="cards__icon"></div>
+        </div>
+      </div>
+      <div class="cards__item">
+        <img class="cards__image" src="images/koshtan-tau.jpg" alt="">
+        <div class="cards__info">
+          <h2 class="cards__location">Коштан - Тау</h2>
+          <div class="cards__icon"></div>
+        </div>
+      </div>
+      <div class="cards__item">
+        <img class="cards__image" src="images/munku-sardyk.jpg" alt="">
+        <div class="cards__info">
+          <h2 class="cards__location">Мунку-Сардык</h2>
+          <div class="cards__icon"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">© 2020 Mesto Russia</p>
+  </footer>
+  <div class="popup popup_opened">
+    <div class="popup__overlay"></div>
+    <div class="popup__container">
+      <form class="form">
+        <h2 class="form__title">Редактировать профиль</h2>
+        <input type="text" name="Имя" class="form__input" value="Жак-Ив Кусто" required>
+        <input type="text" name="Описание" class="form__input" value="Жак-Ив Кусто" required>
+        <button type="submit" value="Отправить на сервер" class="form__button">Отправить</button>
+      </form>
+      <button class="popup__buttom-close"></button>
+    </div>
+  </div>
+</body>
+</html>

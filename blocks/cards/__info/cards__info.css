@@ -1,0 +1,6 @@
+.cards__info {
+  display: flex;
+  margin: 25px 20px 31px;
+  justify-content: space-between;
+  align-items: center;
+}
