@@ -85,6 +85,9 @@ function addCard(title, link) {
 
   let trash = cardItem.querySelector('.cards__trash-button');
   trash.addEventListener('click', deleteCardHandler);
+
+  let image = cardItem.querySelector('.cards__image');
+  image.addEventListener('click', openPopupImg);
 };
 
 function addCardSubmitHandler(evt) {
