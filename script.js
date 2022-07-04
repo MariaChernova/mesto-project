@@ -136,6 +136,19 @@ buttonCloseImg.addEventListener('click', closePopupImg);
 
 const images = document.querySelectorAll('.cards__image');
 
-function openImage() {
-  
+images.forEach(button => {
+  button.addEventListener('click', openPopupImg);
+});
+
+function openPopupImg(evt) {
+  let popup = document.querySelector('.popup-image');
+  let image = popup.querySelector('.popup-image__img');
+  image.src = evt.currentTarget.src;
+
+  let description = popup.querySelector('.popup-image__img-description');
+  const card = evt.currentTarget.closest('.cards__item');
+  const location = card.querySelector('.cards__location');
+  description.textContent = location.textContent;
+
+  popup.classList.add('popup_opened');
 }
