@@ -65,21 +65,22 @@ buttonCloseAdd.addEventListener('click', closePopupAdd);
 // Добавление карточки 
 
 function addCard(title, link) {
-  cards.insertAdjacentHTML('afterbegin', `
-    <div class="cards__item">
-      <button class="cards__trash-button" type="button" aria-label="Удалить"></button>
-      <img class="cards__image" src="${link}" alt="">
-      <div class="cards__info">
-        <h2 class="cards__location">${title}</h2>
-        <button class="cards__icon" type="button" aria-label="Like it"></button>
-      </div>
-    </div>
-  `);
+  let cardItem = document.createElement('div');
+  cardItem.innerHTML = `
+    <button class="cards__trash-button" type="button" aria-label="Удалить"></button>
+    <img class="cards__image" src="${link}" alt="">
+    <div class="cards__info">
+      <h2 class="cards__location">${title}</h2>
+      <button class="cards__icon" type="button" aria-label="Like it"></button>
+    </div>`;
+  cardItem.classList.add('cards__item');
+  cards.insertBefore(cardItem, cards.childNodes[0]);
+  let like = cardItem.querySelector('.cards__icon');
+  like.addEventListener('click', likeClickHandler);
 };
 
 function addCardSubmitHandler(evt) {
   evt.preventDefault();
-
   let titleInput = document.querySelector('.form__input_title');
   let linkInput = document.querySelector('.form__input_link');
   addCard(titleInput.value, linkInput.value);
@@ -88,17 +89,23 @@ function addCardSubmitHandler(evt) {
 
 formAdd.addEventListener('submit', addCardSubmitHandler);
 
+// Удаление карточки
+
+const 
+function deleteCard()
 
 // Лайки
 
 const likes = document.querySelectorAll('.cards__icon');
 
+function likeClickHandler(evt) {
+  if (evt.currentTarget.classList.contains('cards__icon_active')) {
+    evt.currentTarget.classList.remove('cards__icon_active');
+  } else {
+    evt.currentTarget.classList.add('cards__icon_active'); 
+  }
+};
+
 likes.forEach(button => {
-  button.addEventListener('click', evt => {
-    if (button.classList.contains('cards__icon_active')) {
-      button.classList.remove('cards__icon_active');
-    } else {
-    button.classList.add('cards__icon_active'); 
-    };
-  });
+  button.addEventListener('click', likeClickHandler);
 });
