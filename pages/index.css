@@ -18,6 +18,7 @@
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 
 @import url(../blocks/cards/cards.css);
+@import url(../blocks/cards/__trash-button/cards__trash-button.css);
 @import url(../blocks/cards/__item/cards__item.css);
 @import url(../blocks/cards/__info/cards__info.css);
 @import url(../blocks/cards/__location/cards__location.css);

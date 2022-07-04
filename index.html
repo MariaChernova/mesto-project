@@ -26,6 +26,7 @@
     </section>
     <section class="cards">
       <div class="cards__item">
+        <button class="cards__trash-button" type="button" aria-label="Удалить"></button>
         <img class="cards__image" src="images/elbrus.jpg" alt="Гора Эльбрус">
         <div class="cards__info">
           <h2 class="cards__location">Эльбрус</h2>
@@ -33,6 +34,7 @@
         </div>
       </div>
       <div class="cards__item">
+        <button class="cards__trash-button" type="button" aria-label="Удалить"></button>
         <img class="cards__image" src="images/beluha.jpg" alt="Гора Белуха">
         <div class="cards__info">
           <h2 class="cards__location">Белуха</h2>
@@ -40,6 +42,7 @@
         </div>
       </div>
       <div class="cards__item">
+        <button class="cards__trash-button" type="button" aria-label="Удалить"></button>
         <img class="cards__image" src="images/kazbeg.jpg" alt="Гора Казбег">
         <div class="cards__info">
           <h2 class="cards__location">Казбег</h2>
@@ -47,6 +50,7 @@
         </div>
       </div>
       <div class="cards__item">
+        <button class="cards__trash-button" type="button" aria-label="Удалить"></button>
         <img class="cards__image" src="images/kljuchevskaja-sopka.jpg" alt="Ключевская сопка">
         <div class="cards__info">
           <h2 class="cards__location">Ключевская сопка</h2>
@@ -54,6 +58,7 @@
         </div>
       </div>
       <div class="cards__item">
+        <button class="cards__trash-button" type="button" aria-label="Удалить"></button>
         <img class="cards__image" src="images/koshtan-tau.jpg" alt="Гора Коштан-Тау">
         <div class="cards__info">
           <h2 class="cards__location">Коштан - Тау</h2>
@@ -61,6 +66,7 @@
         </div>
       </div>
       <div class="cards__item">
+        <button class="cards__trash-button" type="button" aria-label="Удалить"></button>
         <img class="cards__image" src="images/munku-sardyk.jpg" alt="Гора Мунку-Сардык">
         <div class="cards__info">
           <h2 class="cards__location">Мунку-Сардык</h2>
@@ -72,16 +78,28 @@
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
-  <div class="popup popup_opened">
+  <div class="popup">
     <div class="popup__container">
       <form class="form" name="popupForm">
         <h2 class="form__title">Редактировать профиль</h2>
-        <input type="text" name="name" class="form__input" value="" required>
-        <input type="text" name="about" class="form__input" value="" required>
+        <input type="text" name="name" class="form__input form__input_name" value="" required>
+        <input type="text" name="about" class="form__input form__input_subtitle" value="" required>
         <button type="submit" value="Отправить на сервер" class="form__button" aria-label="Сохранить">Сохранить</button>
       </form>
       <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
     </div>
   </div>
+  <div class="popup popup-add">
+    <div class="popup__container">
+      <form class="form" name="popupForm">
+        <h2 class="form__title">Новое место</h2>
+        <input type="text" name="title" class="form__input form__input_title" value="Название" required>
+        <input type="text" name="link" class="form__input form__input_link" value="Ссылка на картинку" required>
+        <button type="submit" value="Отправить на сервер" class="form__button" aria-label="Создать">Создать</button>
+      </form>
+      <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
