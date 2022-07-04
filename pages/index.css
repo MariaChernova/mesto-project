@@ -24,6 +24,7 @@
 @import url(../blocks/cards/__location/cards__location.css);
 @import url(../blocks/cards/__icon/cards__icon.css);
 @import url(../blocks/cards/__icon/_active/cards__icon_active.css);
+@import url(../blocks/cards/__image/cards__image.css);
 
 
 @import url(../blocks/footer/footer.css);
