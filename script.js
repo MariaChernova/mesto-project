@@ -75,8 +75,12 @@ function addCard(title, link) {
     </div>`;
   cardItem.classList.add('cards__item');
   cards.insertBefore(cardItem, cards.childNodes[0]);
+
   let like = cardItem.querySelector('.cards__icon');
   like.addEventListener('click', likeClickHandler);
+
+  let trash = cardItem.querySelector('.cards__trash-button');
+  trash.addEventListener('click', deleteCardHandler);
 };
 
 function addCardSubmitHandler(evt) {
@@ -91,8 +95,16 @@ formAdd.addEventListener('submit', addCardSubmitHandler);
 
 // Удаление карточки
 
-const 
-function deleteCard()
+const buttonsDeleteCard = document.querySelectorAll('.cards__trash-button');
+
+buttonsDeleteCard.forEach(button => {
+  button.addEventListener('click', deleteCardHandler);
+});
+
+function deleteCardHandler(evt) {
+  const cardItem = evt.currentTarget.closest('.cards__item');
+  cardItem.remove();
+}
 
 // Лайки
 
