@@ -71,7 +71,7 @@ function addCard(title, link) {
       <img class="cards__image" src="${link}" alt="">
       <div class="cards__info">
         <h2 class="cards__location">${title}</h2>
-        <button class="cards__icon cards__icon_active" type="button" aria-label="Like it"></button>
+        <button class="cards__icon" type="button" aria-label="Like it"></button>
       </div>
     </div>
   `);
@@ -87,3 +87,18 @@ function addCardSubmitHandler(evt) {
 };
 
 formAdd.addEventListener('submit', addCardSubmitHandler);
+
+
+// Лайки
+
+const likes = document.querySelectorAll('.cards__icon');
+
+likes.forEach(button => {
+  button.addEventListener('click', evt => {
+    if (button.classList.contains('cards__icon_active')) {
+      button.classList.remove('cards__icon_active');
+    } else {
+    button.classList.add('cards__icon_active'); 
+    };
+  });
+});
