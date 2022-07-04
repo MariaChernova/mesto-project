@@ -9,6 +9,9 @@ const popupAdd = document.querySelector('.popup-add');
 const buttonCloseAdd = popupAdd.querySelector('.popup__button-close');
 const formAdd = popupAdd.querySelector('.form');
 
+const popupImg = document.querySelector('.popup-image');
+const buttonCloseImg = popupImg.querySelector('.popup__button-close');
+
 const nameField = document.querySelector('.profile__name');
 const subtitleField = document.querySelector('.profile__subtitle');
 const titleField = document.querySelector('.cards__location');
@@ -20,7 +23,7 @@ let subtitleInput = document.querySelector('.form__input_subtitle');
 let cards = document.querySelector('.cards');
 
 
-// Попап изменения данных пользователя
+// Popup. User data changes
 
 function openPopup() {
   popup.classList.add('popup_opened');
@@ -29,6 +32,7 @@ function openPopup() {
 };
 
 editButton.addEventListener('click', openPopup);
+
 
 function closePopup() {
   popup.classList.remove('popup_opened')
@@ -47,7 +51,7 @@ function formSubmitHandler(evt) {
 form.addEventListener('submit', formSubmitHandler);
 
 
-// Попап добавления карточек
+// Popup. Adding a card
 
 function openPopupAdd() {
   popupAdd.classList.add('popup_opened');
@@ -62,7 +66,7 @@ function closePopupAdd() {
 buttonCloseAdd.addEventListener('click', closePopupAdd);
 
 
-// Добавление карточки 
+// Added card
 
 function addCard(title, link) {
   let cardItem = document.createElement('div');
@@ -93,7 +97,7 @@ function addCardSubmitHandler(evt) {
 
 formAdd.addEventListener('submit', addCardSubmitHandler);
 
-// Удаление карточки
+// Deleting a card
 
 const buttonsDeleteCard = document.querySelectorAll('.cards__trash-button');
 
@@ -106,7 +110,7 @@ function deleteCardHandler(evt) {
   cardItem.remove();
 }
 
-// Лайки
+// Lakes
 
 const likes = document.querySelectorAll('.cards__icon');
 
@@ -121,3 +125,17 @@ function likeClickHandler(evt) {
 likes.forEach(button => {
   button.addEventListener('click', likeClickHandler);
 });
+
+// Popup. Image
+
+function closePopupImg() {
+  popupImg.classList.remove('popup_opened')
+};
+
+buttonCloseImg.addEventListener('click', closePopupImg);
+
+const images = document.querySelectorAll('.cards__image');
+
+function openImage() {
+  
+}
