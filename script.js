@@ -31,7 +31,7 @@ function formSubmitHandler(evt) {
   evt.preventDefault();
   nameField.textContent = `${nameInput.value}`;
   subtitleField.textContent = `${subtitleInput.value}`;
-  closePopup();
+  closePopup(editPopup);
 };
 
 const form = editPopup.querySelector('.form');
@@ -76,7 +76,7 @@ function addCardSubmitHandler(evt) {
   const titleInput = document.querySelector('.form__input_title');
   const linkInput = document.querySelector('.form__input_link');
   addCard(titleInput.value, linkInput.value);
-  closePopupAdd();
+  closePopup(cardAddPopup);
 };
 
 const formAdd = cardAddPopup.querySelector('.form');
