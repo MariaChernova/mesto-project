@@ -48,18 +48,13 @@ const buttonCloseAdd = cardAddPopup.querySelector('.popup__button-close');
 buttonCloseAdd.addEventListener('click', () => closePopup(cardAddPopup));
 
 function addCard(title, link) {
-  const cardItem = document.createElement('div');
-  cardItem.innerHTML = `
-    <button class="cards__trash-button" type="button" aria-label="Удалить"></button>
-    <img class="cards__image" src="${link}" alt="">
-    <div class="cards__info">
-      <h2 class="cards__location">${title}</h2>
-      <button class="cards__icon" type="button" aria-label="Like it"></button>
-    </div>`;
-  cardItem.classList.add('cards__item');
+  const cardItem = document.getElementById('card-template').content.cloneNode(true);
+
+  const cardsImage = cardItem.querySelector('.cards__image');
+  cardsImage.src = link;
   
-  const cards = document.querySelector('.cards');
-  cards.insertBefore(cardItem, cards.childNodes[0]);
+  const cardsLocation = cardItem.querySelector('.cards__location');
+  cardsLocation.textContent = title;
 
   const like = cardItem.querySelector('.cards__icon');
   like.addEventListener('click', likeClickHandler);
@@ -69,6 +64,9 @@ function addCard(title, link) {
 
   const image = cardItem.querySelector('.cards__image');
   image.addEventListener('click', openPopupImg);
+  
+  const cards = document.querySelector('.cards');
+  cards.insertBefore(cardItem, cards.childNodes[0]);
 };
 
 function addCardSubmitHandler(evt) {
