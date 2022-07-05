@@ -16,9 +16,11 @@ const cardLinkInput = document.querySelector('.form__input_link');
 const cardAddButton = document.querySelector('.profile__add-button');
 const cardButtonClose = cardAddPopup.querySelector('.popup__button-close');
 const cardAddForm = cardAddPopup.querySelector('.form');
-const popupImg = document.querySelector('.popup-image');
 
-const popupImageCloseButton = popupImg.querySelector('.popup__button-close');
+const cardPopup = document.querySelector('.popup-image');
+const cardPopupImage = cardPopup.querySelector('.popup-image__img');
+const cardPopupDescription = cardPopup.querySelector('.popup-image__img-description');
+const cardPopupCloseButton = cardPopup.querySelector('.popup__button-close');
 
 const defaultCards = [
   {
@@ -57,7 +59,7 @@ function closePopup(modal) {
 }
 
 function deleteCard(evt) {
-  const cardItem = evt.currentTarget.closest('.cards__item');
+  const cardItem = evt.target.closest('.cards__item');
   cardItem.remove();
 }
 
@@ -109,23 +111,17 @@ function submitAddCard(evt) {
 };
 
 function cardLikeClick(evt) {
-  if (evt.currentTarget.classList.contains('cards__icon_active')) {
-    evt.currentTarget.classList.remove('cards__icon_active');
-  } else {
-    evt.currentTarget.classList.add('cards__icon_active'); 
-  }
+  evt.target.classList.toggle('cards__icon_active');
 };
 
 function openPopupImg(evt) {
-  const image = popupImg.querySelector('.popup-image__img');
-  image.src = evt.currentTarget.src;
+  cardPopupImage.src = evt.target.src;
 
-  const description = popupImg.querySelector('.popup-image__img-description');
-  const card = evt.currentTarget.closest('.cards__item');
+  const card = evt.target.closest('.cards__item');
   const location = card.querySelector('.cards__location');
-  description.textContent = location.textContent;
+  cardPopupDescription.textContent = location.textContent;
 
-  openPopup(popupImg);
+  openPopup(cardPopup);
 }
 
 
@@ -142,4 +138,4 @@ cardAddButton.addEventListener('click', () => openPopup(cardAddPopup));
 cardButtonClose.addEventListener('click', () => closePopup(cardAddPopup));
 cardAddForm.addEventListener('submit', submitAddCard);
 
-popupImageCloseButton.addEventListener('click', () => closePopup(popupImg));
+cardPopupCloseButton.addEventListener('click', () => closePopup(cardPopup));
