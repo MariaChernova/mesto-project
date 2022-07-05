@@ -27,15 +27,15 @@ const buttonClose = editPopup.querySelector('.popup__button-close');
 buttonClose.addEventListener('click', () => closePopup(editPopup));
 
 
-function formSubmitHandler(evt) {
+function profileEditSubmitHandler(evt) {
   evt.preventDefault();
-  nameField.textContent = `${nameInput.value}`;
-  subtitleField.textContent = `${subtitleInput.value}`;
+  nameField.textContent = nameInput.value;
+  subtitleField.textContent = subtitleInput.value;
   closePopup(editPopup);
 };
 
 const form = editPopup.querySelector('.form');
-form.addEventListener('submit', formSubmitHandler);
+form.addEventListener('submit', profileEditSubmitHandler);
 
 
 // Popup. Adding a card
