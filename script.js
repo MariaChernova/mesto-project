@@ -68,6 +68,7 @@ function createCard(title, link) {
 
   const cardsImage = cardItem.querySelector('.cards__image');
   cardsImage.src = link;
+  cardsImage.alt = title;
   
   const cardsLocation = cardItem.querySelector('.cards__location');
   cardsLocation.textContent = title;
@@ -85,7 +86,7 @@ function createCard(title, link) {
 };
 
 function renderCard(container, card) {  
-  container.insertBefore(card, container.childNodes[0]);
+  container.insertBefore(card, container.firstChild);
 };
 
 function openProfileEditPopup() {
@@ -107,6 +108,9 @@ function submitAddCard(evt) {
   const card = createCard(cardTitleInput.value, cardLinkInput.value);
   renderCard(cardsContainer, card);
 
+  cardTitleInput.value = '';
+  cardLinkInput.value = '';
+
   closePopup(cardAddPopup);
 };
 
@@ -115,11 +119,12 @@ function cardLikeClick(evt) {
 };
 
 function openPopupImg(evt) {
-  cardPopupImage.src = evt.target.src;
-
   const card = evt.target.closest('.cards__item');
   const location = card.querySelector('.cards__location');
   cardPopupDescription.textContent = location.textContent;
+
+  cardPopupImage.src = evt.target.src;
+  cardPopupImage.alt = location.textContent;
 
   openPopup(cardPopup);
 }
