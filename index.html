@@ -46,12 +46,12 @@
       <form class="form" name="popupForm" novalidate>
         <h2 class="form__title">Редактировать профиль</h2>
         <label class="form__field">
-          <input type="text" name="name" class="form__input form__input_name" value="" placeholder="Имя" required minlength="2" maxlength="40">
-          <span class="form__input-error">Вы пропустили это поле</span>
+          <input id="name-input" type="text" name="name" class="form__input form__input_name" value="" placeholder="Имя" required minlength="2" maxlength="40" pattern="^[a-zA-Zа-яА-Я- ]*$">
+          <span class="form__input-error name-input-error"></span>
         </label>
         <label class="form__field">
-          <input type="text" name="about" class="form__input form__input_subtitle" value="" placeholder="Профессия" required minlength="2" maxlength="200">
-          <span class="form__input-error">Вы пропустили это поле</span>
+          <input id="about-input" type="text" name="about" class="form__input form__input_subtitle" value="" placeholder="Профессия" required minlength="2" maxlength="200" pattern="^[a-zA-Zа-яА-Я- ]*$">
+          <span class="form__input-error about-input-error"></span>
         </label>
         <button type="submit" value="Отправить на сервер" class="form__button" aria-label="Сохранить">Сохранить</button>
       </form>
@@ -63,11 +63,11 @@
       <form class="form" name="popupForm" novalidate>
         <h2 class="form__title">Новое место</h2>
         <label class="form__field">
-          <input type="text" name="title" class="form__input form__input_title" value="" placeholder="Название" required minlength="2" maxlength="40">
+          <input id="title-input" type="text" name="title" class="form__input form__input_title" value="" placeholder="Название" required minlength="2" maxlength="40">
           <span class="form__input-error">Вы пропустили это поле</span>
         </label>
         <label class="form__field">
-          <input type="url" name="link" class="form__input form__input_link" value="" placeholder="Ссылка на картинку" required>
+          <input id="url-input" type="url" name="link" class="form__input form__input_link" value="" placeholder="Ссылка на картинку" required>
           <span class="form__input-error">Введите адрес сайта</span>
         </label>
         <button type="submit" value="Отправить на сервер" class="form__button" aria-label="Создать">Создать</button>

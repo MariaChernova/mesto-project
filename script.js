@@ -7,6 +7,9 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 const profileButtonClose = profileEditPopup.querySelector('.popup__button-close');
 const profileEditForm = profileEditPopup.querySelector('.form');
 
+const form = document.querySelector('.form');
+const formInput = document.querySelector('.form__input_name');
+
 const cardsContainer = document.querySelector('.cards');
 const cardTemplate = document.getElementById('card-template');
 
@@ -21,6 +24,34 @@ const cardPopup = document.querySelector('.popup-image');
 const cardPopupImage = cardPopup.querySelector('.popup-image__img');
 const cardPopupDescription = cardPopup.querySelector('.popup-image__img-description');
 const cardPopupCloseButton = cardPopup.querySelector('.popup__button-close');
+
+function validateProfileInput(inputElement, errorElement) {
+  console.log(errorElement.textContent);
+  if (inputElement.validity.valid) {
+    errorElement.textContent = "";
+  }    
+  else if (inputElement.validity.patternMismatch) {
+    errorElement.textContent = "Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы";
+  }
+  else {
+    errorElement.textContent = inputElement.validationMessage;
+  }
+}
+
+function enableFormValidation(formElement, inputValidationCallback) {
+  formElement.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+  });
+
+  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
+  inputList.forEach((inputElement) => {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.addEventListener('input', () => inputValidationCallback(inputElement, errorElement));
+  });
+}
+
+enableFormValidation(profileEditForm, validateProfileInput);
+
 
 const defaultCards = [
   {
@@ -48,7 +79,6 @@ const defaultCards = [
     link: 'images/munku-sardyk.jpg'
   }
 ];
-
 
 function openPopup(modal) {
   modal.classList.add('popup_opened');
