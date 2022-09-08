@@ -1,4 +1,5 @@
-// Валидация поля ввода
+export { enableValidation };
+
 
 function validateFormInput(inputElement, errorElement) {
   if (inputElement.validity.valid) {
@@ -10,15 +11,11 @@ function validateFormInput(inputElement, errorElement) {
   }
 }
 
-// Проверка на ошибки в полях ввода
-
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 };
-
-// Кнопка неактивна
 
 function toggleButtonState(cfg, inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
@@ -27,8 +24,6 @@ function toggleButtonState(cfg, inputList, buttonElement) {
     buttonElement.classList.remove(cfg.inactiveButtonClass);
   };
 };
-
-// Включаем валидацию формы
 
 function enableFormValidation(cfg, formElement) {
   formElement.addEventListener('submit', function (evt) {

@@ -1,15 +1,20 @@
+import { closePopup, openPopupImg } from './modal.js';
+import { cardAddPopup } from '../index.js';
+
+export { addDefaultCards, submitAddCard };
+
 const cardsContainer = document.querySelector('.cards');
 const cardTemplate = document.getElementById('card-template');
 const cardTitleInput = document.querySelector('.form__input_title');
 const cardLinkInput = document.querySelector('.form__input_link');
 
 
-const elbrusImage = new URL('./images/elbrus.jpg', import.meta.url);
-const beluhaImage = new URL('./images/beluha.jpg', import.meta.url);
-const kazbegImage = new URL('./images/kazbeg.jpg', import.meta.url);
-const kljuchevskajaImage = new URL('./images/kljuchevskaja-sopka.jpg', import.meta.url);
-const koshtanImage = new URL('./images/koshtan-tau.jpg', import.meta.url);
-const munkuImage = new URL('./images/munku-sardyk.jpg', import.meta.url);
+const elbrusImage = new URL('../images/elbrus.jpg', import.meta.url);
+const beluhaImage = new URL('../images/beluha.jpg', import.meta.url);
+const kazbegImage = new URL('../images/kazbeg.jpg', import.meta.url);
+const kljuchevskajaImage = new URL('../images/kljuchevskaja-sopka.jpg', import.meta.url);
+const koshtanImage = new URL('../images/koshtan-tau.jpg', import.meta.url);
+const munkuImage = new URL('../images/munku-sardyk.jpg', import.meta.url);
 
 const defaultCards = [
   {

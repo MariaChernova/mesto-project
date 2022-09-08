@@ -1,7 +1,13 @@
+import { profileEditPopup } from '../index.js';
+
+export { openPopup, closePopup, openProfileEditPopup, submitProfileEdit, closeOpenedPopup, openPopupImg }
+
 const profileNameField = document.querySelector('.profile__name');
 const profileSubtitleField = document.querySelector('.profile__subtitle');
 const profileNameInput = document.querySelector('.form__input_name');
 const profileSubtitleInput = document.querySelector('.form__input_subtitle');
+
+const cardPopup = document.querySelector('.popup-image');
 const cardPopupImage = cardPopup.querySelector('.popup-image__img');
 const cardPopupDescription = cardPopup.querySelector('.popup-image__img-description');
 
@@ -35,4 +41,9 @@ function openPopupImg(evt) {
   cardPopupImage.alt = location.textContent;
 
   openPopup(cardPopup);
+}
+
+function closeOpenedPopup() {
+  const popup = document.querySelector('.popup_opened');
+  closePopup(popup);
 }

@@ -1,21 +1,19 @@
 import './pages/index.css';
+import { addDefaultCards, submitAddCard } from './components/card.js';
+import { openPopup, closePopup, openProfileEditPopup, submitProfileEdit, closeOpenedPopup } from './components/modal.js';
+import { enableValidation } from './components/validate.js';
+
+export {profileEditPopup, cardAddPopup};
 
 const popups = document.querySelectorAll('.popup');
 
 const profileEditPopup = document.querySelector('.popup-profile');
 const profileEditButton = document.querySelector('.profile__edit-button');
-const profileButtonClose = profileEditPopup.querySelector('.popup__button-close');
 const profileEditForm = profileEditPopup.querySelector('.form');
 
 const cardAddPopup = document.querySelector('.popup-add');
 const cardAddButton = document.querySelector('.profile__add-button');
-const cardButtonClose = cardAddPopup.querySelector('.popup__button-close');
 const cardAddForm = cardAddPopup.querySelector('.form');
-
-const cardPopup = document.querySelector('.popup-image');
-const cardPopupCloseButton = cardPopup.querySelector('.popup__button-close');
-
-
 
 addDefaultCards();
 
@@ -28,8 +26,7 @@ enableValidation({
 
 window.onkeydown = (evt) => {
   if (evt.keyCode == 27) {
-    const popup = document.querySelector('.popup_opened');
-    closePopup(popup);
+    closeOpenedPopup();
   }
 };
 
@@ -38,14 +35,17 @@ popups.forEach(popup => {
   overlay.addEventListener('click', () => {
     closePopup(popup);
   });
+  const closeButton = popup.querySelector('.popup__button-close');
+  closeButton.addEventListener('click', () => {
+    closePopup(popup);
+  });
 });
 
 profileEditButton.addEventListener('click', openProfileEditPopup);
-profileButtonClose.addEventListener('click', () => closePopup(profileEditPopup));
 profileEditForm.addEventListener('submit', submitProfileEdit);
 
 cardAddButton.addEventListener('click', () => openPopup(cardAddPopup));
-cardButtonClose.addEventListener('click', () => closePopup(cardAddPopup));
 cardAddForm.addEventListener('submit', submitAddCard);
 
-cardPopupCloseButton.addEventListener('click', () => closePopup(cardPopup));
+
+
