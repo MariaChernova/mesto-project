@@ -20,27 +20,34 @@ function hasInvalidInput(inputList) {
 
 // Кнопка неактивна
 
-function toggleButtonState(inputList, buttonElement) {
+function toggleButtonState(cfg, inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('form__button-inactive');
+    buttonElement.classList.add(cfg.inactiveButtonClass);
   } else {
-    buttonElement.classList.remove('form__button-inactive');
+    buttonElement.classList.remove(cfg.inactiveButtonClass);
   };
 };
 
 // Включаем валидацию формы
 
-function enableFormValidation(formElement, inputValidationCallback) {
+function enableFormValidation(cfg, formElement) {
   formElement.addEventListener('submit', function (evt) {
     evt.preventDefault();
   });
-  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-  const submitButton = formElement.querySelector('.form__button');
+  const inputList = Array.from(formElement.querySelectorAll(cfg.inputSelector));
+  const submitButton = formElement.querySelector(cfg.submitButtonSelector);
   inputList.forEach((inputElement) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.addEventListener('input', () => {
-      inputValidationCallback(inputElement, errorElement);
-      toggleButtonState(inputList, submitButton);
+      validateFormInput(inputElement, errorElement);
+      toggleButtonState(cfg, inputList, submitButton);
     });
+  });
+}
+
+function enableValidation(cfg) {
+  const forms = Array.from(document.querySelectorAll(cfg.formSelector));
+  forms.forEach((form) => {
+    enableFormValidation(cfg, form);
   });
 }

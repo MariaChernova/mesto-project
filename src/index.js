@@ -15,20 +15,16 @@ const cardAddForm = cardAddPopup.querySelector('.form');
 const cardPopup = document.querySelector('.popup-image');
 const cardPopupCloseButton = cardPopup.querySelector('.popup__button-close');
 
-enableFormValidation(profileEditForm, validateFormInput);
-enableFormValidation(cardAddForm, validateFormInput);
+
 
 addDefaultCards();
 
-profileEditButton.addEventListener('click', openProfileEditPopup);
-profileButtonClose.addEventListener('click', () => closePopup(profileEditPopup));
-profileEditForm.addEventListener('submit', submitProfileEdit);
-
-cardAddButton.addEventListener('click', () => openPopup(cardAddPopup));
-cardButtonClose.addEventListener('click', () => closePopup(cardAddPopup));
-cardAddForm.addEventListener('submit', submitAddCard);
-
-cardPopupCloseButton.addEventListener('click', () => closePopup(cardPopup));
+enableValidation({
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button',
+  inactiveButtonClass: 'form__button-inactive',
+});
 
 window.onkeydown = (evt) => {
   if (evt.keyCode == 27) {
@@ -43,3 +39,13 @@ popups.forEach(popup => {
     closePopup(popup);
   });
 });
+
+profileEditButton.addEventListener('click', openProfileEditPopup);
+profileButtonClose.addEventListener('click', () => closePopup(profileEditPopup));
+profileEditForm.addEventListener('submit', submitProfileEdit);
+
+cardAddButton.addEventListener('click', () => openPopup(cardAddPopup));
+cardButtonClose.addEventListener('click', () => closePopup(cardAddPopup));
+cardAddForm.addEventListener('submit', submitAddCard);
+
+cardPopupCloseButton.addEventListener('click', () => closePopup(cardPopup));
