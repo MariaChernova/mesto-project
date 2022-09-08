@@ -2,19 +2,38 @@
   "name": "mesto-project",
   "version": "1.0.0",
   "description": "Одностраничный адаптивный сайт с формой для изменения данных профиля.",
-  "main": "script.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MariaChernova/mesto-project.git"
   },
-  "author": "",
+  "author": "Maria Chernova",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MariaChernova/mesto-project/issues"
   },
   "homepage": "https://github.com/MariaChernova/mesto-project#readme",
-  "keywords": []
+  "keywords": [],
+  "devDependencies": {
+    "@babel/core": "^7.19.0",
+    "@babel/preset-env": "^7.19.0",
+    "babel-loader": "^8.2.5",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.8",
+    "core-js": "^3.25.1",
+    "cssnano": "^5.1.13",
+    "postcss-loader": "^7.0.1"
+  }
 }

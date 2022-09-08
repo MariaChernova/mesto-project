@@ -4,16 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-  <link rel="stylesheet" href="pages/index.css">
 </head>
 <body class="page">
   <header class="header">
-    <img class="header__logo" src="images/logo/logo.svg" alt="Логотип">
+    <img class="header__logo" src="<%=require('./images/logo/logo.svg')%>" alt="Логотип">
   </header>
   <main class="content">
     <section class="profile">
       <div class="profile__data">
-        <img class="profile__image" src="images/avatar.jpg" alt="Портрет Жак-Ив Кусто">
+        <img class="profile__image" src="<%=require('./images/avatar.jpg')%>" alt="Портрет Жак-Ив Кусто">
         <div class="profile__text">
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -47,11 +46,11 @@
       <form class="form" name="popupForm" novalidate>
         <h2 class="form__title">Редактировать профиль</h2>
         <label class="form__field">
-          <input id="name-input" type="text" name="name" class="form__input form__input_name" value="" placeholder="Имя" required minlength="2" maxlength="40" pattern="^[a-zA-Zа-яА-Я- ]*$">
+          <input id="name-input" type="text" name="name" class="form__input form__input_name" value="" placeholder="Имя" required minlength="2" maxlength="40" pattern="^[a-zA-Zа-яА-Я- ]*$" data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
           <span class="form__input-error name-input-error"></span>
         </label>
         <label class="form__field">
-          <input id="about-input" type="text" name="about" class="form__input form__input_subtitle" value="" placeholder="Профессия" required minlength="2" maxlength="200" pattern="^[a-zA-Zа-яА-Я- ]*$">
+          <input id="about-input" type="text" name="about" class="form__input form__input_subtitle" value="" placeholder="Профессия" required minlength="2" maxlength="200" pattern="^[a-zA-Zа-яА-Я- ]*$" data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
           <span class="form__input-error about-input-error"></span>
         </label>
         <button type="submit" value="Отправить на сервер" class="form__button" aria-label="Сохранить">Сохранить</button>
@@ -65,7 +64,7 @@
       <form class="form" name="popupForm" novalidate>
         <h2 class="form__title">Новое место</h2>
         <label class="form__field">
-          <input id="title-input" type="text" name="title" class="form__input form__input_title" value="" placeholder="Название" required minlength="2" maxlength="30" pattern="^[a-zA-Zа-яА-Я- ]*$">
+          <input id="title-input" type="text" name="title" class="form__input form__input_title" value="" placeholder="Название" required minlength="2" maxlength="30" pattern="^[a-zA-Zа-яА-Я- ]*$" data-pattern-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
           <span class="form__input-error title-input-error"></span>
         </label>
         <label class="form__field">
@@ -87,6 +86,5 @@
       </div>
     </div>
   </div>
-  <script src="script.js"></script>
 </body>
 </html>
