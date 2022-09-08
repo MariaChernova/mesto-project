@@ -45,5 +45,6 @@ function openPopupImg(evt) {
 
 function closeOpenedPopup() {
   const popup = document.querySelector('.popup_opened');
-  closePopup(popup);
+  if (popup)
+    closePopup(popup);
 }
