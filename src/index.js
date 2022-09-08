@@ -1,3 +1,13 @@
+const elbrusImage = new URL('./images/elbrus.jpg', import.meta.url);
+const beluhaImage = new URL('./images/beluha.jpg', import.meta.url);
+const kazbegImage = new URL('./images/kazbeg.jpg', import.meta.url);
+const kljuchevskajaImage = new URL('./images/kljuchevskaja-sopka.jpg', import.meta.url);
+const koshtanImage = new URL('./images/koshtan-tau.jpg', import.meta.url);
+const munkuImage = new URL('./images/munku-sardyk.jpg', import.meta.url);
+
+import './pages/index.css';
+
+
 const profileEditPopup = document.querySelector('.popup-profile');
 const profileNameField = document.querySelector('.profile__name');
 const profileSubtitleField = document.querySelector('.profile__subtitle');
@@ -77,27 +87,27 @@ enableFormValidation(cardAddForm, validateFormInput);
 const defaultCards = [
   {
     title: 'Эльбрус',
-    link: 'images/elbrus.jpg'
+    link: elbrusImage
   },
   {
     title: 'Белуха',
-    link: 'images/beluha.jpg'
+    link: beluhaImage
   },
   {
     title: 'Казбег',
-    link: 'images/kazbeg.jpg'
+    link: kazbegImage
   },
   {
     title: 'Ключевская сопка',
-    link: 'images/kljuchevskaja-sopka.jpg'
+    link: kljuchevskajaImage
   },
   {
     title: 'Коштан - Тау',
-    link: 'images/koshtan-tau.jpg'
+    link: koshtanImage
   },
   {
     title: 'Мунку-Сардык',
-    link: 'images/munku-sardyk.jpg'
+    link: munkuImage
   }
 ];
 
