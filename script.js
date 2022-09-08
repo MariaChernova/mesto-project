@@ -1,4 +1,4 @@
-const profileEditPopup = document.querySelector('.popup');
+const profileEditPopup = document.querySelector('.popup-profile');
 const profileNameField = document.querySelector('.profile__name');
 const profileSubtitleField = document.querySelector('.profile__subtitle');
 const profileNameInput = document.querySelector('.form__input_name');
@@ -71,7 +71,6 @@ function enableFormValidation(formElement, inputValidationCallback) {
 
 enableFormValidation(profileEditForm, validateFormInput);
 enableFormValidation(cardAddForm, validateFormInput);
-
 
 
 
@@ -181,7 +180,6 @@ function openPopupImg(evt) {
   openPopup(cardPopup);
 }
 
-
 defaultCards.forEach(card => {
   const cardItem = createCard(card.title, card.link);
   renderCard(cardsContainer, cardItem);
@@ -196,3 +194,19 @@ cardButtonClose.addEventListener('click', () => closePopup(cardAddPopup));
 cardAddForm.addEventListener('submit', submitAddCard);
 
 cardPopupCloseButton.addEventListener('click', () => closePopup(cardPopup));
+
+window.onkeydown = (evt) => {
+  if (evt.keyCode == 27) {
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup);
+  }
+};
+
+const popups = document.querySelectorAll('.popup');
+popups.forEach(popup => {
+  const overlay = popup.querySelector('.overlay');
+  overlay.addEventListener('click', () => {
+    closePopup(popup);
+  });
+});
+
