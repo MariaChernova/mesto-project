@@ -1,6 +1,3 @@
-export { enableValidation };
-
-
 function validateFormInput(inputElement, errorElement) {
   if (inputElement.validity.valid) {
     errorElement.textContent = "";
@@ -17,11 +14,11 @@ function hasInvalidInput(inputList) {
   });
 };
 
-function toggleButtonState(cfg, inputList, buttonElement) {
+function toggleButtonState({inactiveButtonClass}, inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(cfg.inactiveButtonClass);
+    buttonElement.classList.add(inactiveButtonClass);
   } else {
-    buttonElement.classList.remove(cfg.inactiveButtonClass);
+    buttonElement.classList.remove(inactiveButtonClass);
   };
 };
 
@@ -46,3 +43,5 @@ function enableValidation(cfg) {
     enableFormValidation(cfg, form);
   });
 }
+
+export { enableValidation };
