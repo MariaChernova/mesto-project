@@ -5,7 +5,7 @@ function validateFormInput(inputElement, errorElement) {
   if (inputElement.validity.valid) {
     errorElement.textContent = "";
   } else if (inputElement.validity.patternMismatch) {
-    errorElement.textContent = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы";
+    errorElement.textContent = inputElement.dataset.patternError;
   } else {
     errorElement.textContent = inputElement.validationMessage;
   }
