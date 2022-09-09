@@ -10,13 +10,10 @@ function deleteCardHandler(evt) {
   cardItem.remove();
 }
 
-function openImage(evt) {
-  const card = evt.target.closest('.cards__item');
-  const location = card.querySelector('.cards__location');
-  cardPopupDescription.textContent = location.textContent;
-
-  cardPopupImage.src = evt.target.src;
-  cardPopupImage.alt = location.textContent;
+function openImage(title, link) {
+  cardPopupImage.src = link;
+  cardPopupImage.alt = title;
+  cardPopupDescription.textContent = title;
 
   openPopup(cardPopup);
 }
@@ -38,7 +35,7 @@ function createCard(title, link) {
   trash.addEventListener('click', deleteCardHandler);
 
   const image = cardItem.querySelector('.cards__image');
-  image.addEventListener('click', openImage);
+  image.addEventListener('click', () => openImage(title, link));
   
   return cardItem;
 };
