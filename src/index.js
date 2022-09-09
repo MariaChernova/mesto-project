@@ -1,7 +1,7 @@
 import './pages/index.css';
 import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
-import { enableValidation } from './components/validate.js';
+import { enableValidation, validateForm, validateFormButton } from './components/validate.js';
 
 const popups = document.querySelectorAll('.popup');
 
@@ -27,6 +27,13 @@ const profileNameField = document.querySelector('.profile__name');
 const profileSubtitleField = document.querySelector('.profile__subtitle');
 const profileNameInput = document.querySelector('.form__input_name');
 const profileSubtitleInput = document.querySelector('.form__input_subtitle');
+
+const validationConfig = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button',
+  inactiveButtonClass: 'form__button-inactive',
+}
 
 const defaultCards = [
   {
@@ -79,9 +86,10 @@ function submitAddCard(evt) {
 };
 
 function openProfileEditPopup() {
-  openPopup(profileEditPopup);
   profileNameInput.value = profileNameField.textContent;
   profileSubtitleInput.value = profileSubtitleField.textContent;
+  validateForm(validationConfig, profileEditPopup);
+  openPopup(profileEditPopup);
 };
 
 function submitProfileEdit(evt) {
@@ -91,14 +99,14 @@ function submitProfileEdit(evt) {
   closePopup(profileEditPopup);
 };
 
+function openAddCardPopup() {
+  validateFormButton(validationConfig, cardAddPopup);
+  openPopup(cardAddPopup);
+};
+
 addCards(defaultCards);
 
-enableValidation({
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__button',
-  inactiveButtonClass: 'form__button-inactive',
-});
+enableValidation(validationConfig);
 
 popups.forEach(popup => {
   const overlay = popup.querySelector('.overlay');
@@ -114,5 +122,5 @@ popups.forEach(popup => {
 profileEditButton.addEventListener('click', openProfileEditPopup);
 profileEditForm.addEventListener('submit', submitProfileEdit);
 
-cardAddButton.addEventListener('click', () => openPopup(cardAddPopup));
+cardAddButton.addEventListener('click', () => openAddCardPopup());
 cardAddForm.addEventListener('submit', submitAddCard);
