@@ -1,6 +1,6 @@
 import './pages/index.css';
 import { createCard } from './components/card.js';
-import { openPopup, closePopup, closeOpenedPopup } from './components/modal.js';
+import { openPopup, closePopup } from './components/modal.js';
 import { enableValidation } from './components/validate.js';
 
 const popups = document.querySelectorAll('.popup');
@@ -99,12 +99,6 @@ enableValidation({
   submitButtonSelector: '.form__button',
   inactiveButtonClass: 'form__button-inactive',
 });
-
-window.onkeydown = (evt) => {
-  if (evt.keyCode == 27) {
-    closeOpenedPopup();
-  }
-};
 
 popups.forEach(popup => {
   const overlay = popup.querySelector('.overlay');
