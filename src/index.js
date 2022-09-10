@@ -27,37 +27,11 @@ function putDataToServer(server, cohort, target, method, token, data) {
   });
 }
 
-// fetch('https://nomoreparties.co/v1/plus-cohort-14/users/me', {
-//   method: 'PATCH',
-//   headers: {
-//     authorization: token,
-//     'Content-Type': 'application/json'
-//   },
-//   body: JSON.stringify({
-//     name: 'Marie Skłodowska Curie',
-//     about: 'Physicist and Chemist'
-//   })
-// });
-
-
-
-// fetch('https://nomoreparties.co/v1/plus-cohort-14/cards', {
-//   method: 'POST',
-//   headers: {
-//     authorization: token,
-//     'Content-Type': 'application/json'
-//   },
-//   body: JSON.stringify({
-//     name: 'Муж',
-//     link: 'https://static.wikia.nocookie.net/walkingdead/images/2/26/Daryl111.png/revision/latest?cb=20220322035852&path-prefix=ru'
-//   })
-// });
-
 fetchDataFromServer(server, cohort, 'cards', token)
 .then((res) => {
   console.log(res);
-  addCards(res);
-})
+  addCards(res.reverse());
+});
 
 function fetchProfileData() {
   fetchDataFromServer(server, cohort, 'users/me', token)
@@ -87,13 +61,6 @@ const cardAddForm = cardAddPopup.querySelector('.form');
 const cardTitleInput = document.querySelector('.form__input_title');
 const cardLinkInput = document.querySelector('.form__input_link');
 
-// const elbrusImage = new URL('./images/elbrus.jpg', import.meta.url);
-// const beluhaImage = new URL('./images/beluha.jpg', import.meta.url);
-// const kazbegImage = new URL('./images/kazbeg.jpg', import.meta.url);
-// const kljuchevskajaImage = new URL('./images/kljuchevskaja-sopka.jpg', import.meta.url);
-// const koshtanImage = new URL('./images/koshtan-tau.jpg', import.meta.url);
-// const munkuImage = new URL('./images/munku-sardyk.jpg', import.meta.url);
-
 const profileNameField = document.querySelector('.profile__name');
 const profileSubtitleField = document.querySelector('.profile__subtitle');
 const profileNameInput = document.querySelector('.form__input_name');
@@ -106,33 +73,6 @@ const validationConfig = {
   inactiveButtonClass: 'form__button-inactive',
 }
 
-// const defaultCards = [
-//   {
-//     title: 'Эльбрус',
-//     link: elbrusImage
-//   },
-//   {
-//     title: 'Белуха',
-//     link: beluhaImage
-//   },
-//   {
-//     title: 'Казбег',
-//     link: kazbegImage
-//   },
-//   {
-//     title: 'Ключевская сопка',
-//     link: kljuchevskajaImage
-//   },
-//   {
-//     title: 'Коштан - Тау',
-//     link: koshtanImage
-//   },
-//   {
-//     title: 'Мунку-Сардык',
-//     link: munkuImage
-//   }
-// ];
-
 function renderCard(container, card) {  
   container.insertBefore(card, container.firstChild);
 };
@@ -142,13 +82,19 @@ function addCards(cards) {
     const cardItem = createCard(card.name, card.link);
     renderCard(cardsContainer, cardItem);
   });
-}
+};
 
 function submitAddCard(evt) {
   evt.preventDefault();
 
-  const card = createCard(cardTitleInput.value, cardLinkInput.value);
-  renderCard(cardsContainer, card);
+  putDataToServer(server, cohort, 'cards', 'POST', token, {
+    name: cardTitleInput.value,
+    link: cardLinkInput.value
+  })
+  .then((res) => {
+    const card = createCard(res.name, res.link);
+    renderCard(cardsContainer, card);
+  });
 
   cardTitleInput.value = '';
   cardLinkInput.value = '';
@@ -186,8 +132,6 @@ function openAddCardPopup() {
   validateFormButton(validationConfig, cardAddPopup);
   openPopup(cardAddPopup);
 };
-
-// addCards(defaultCards);
 
 enableValidation(validationConfig);
 
