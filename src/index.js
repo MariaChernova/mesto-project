@@ -1,47 +1,3 @@
-function fetchDataFromServer(server, cohort, target, token) {
-  return fetch(`${server}/${cohort}/${target}`, {
-    headers: {
-      authorization: token
-    }
-  })
-  .then((res) => {
-    return res.json()
-  });
-}
-
-const token = '3a76beda-dcbb-4c59-817c-2a3fb7dba694';
-const cohort = 'plus-cohort-14';
-const server = 'https://nomoreparties.co/v1';
-
-function putDataToServer(server, cohort, target, method, token, data) {
-  return fetch(`${server}/${cohort}/${target}`, {
-    method: method,
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  .then((res) => {
-    return res.json()
-  });
-}
-
-fetchDataFromServer(server, cohort, 'cards', token)
-.then((res) => {
-  console.log(res);
-  addCards(res.reverse());
-});
-
-function fetchProfileData() {
-  fetchDataFromServer(server, cohort, 'users/me', token)
-  .then((res) => {
-    renderProfile(res.name, res.about, res.avatar);
-  });
-};
-
-fetchProfileData();
-
 import './pages/index.css';
 import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
@@ -73,13 +29,58 @@ const validationConfig = {
   inactiveButtonClass: 'form__button-inactive',
 }
 
+function fetchDataFromServer(server, cohort, target, token) {
+  return fetch(`${server}/${cohort}/${target}`, {
+    headers: {
+      authorization: token
+    }
+  })
+  .then((res) => {
+    return res.json()
+  });
+}
+
+const token = '3a76beda-dcbb-4c59-817c-2a3fb7dba694';
+const cohort = 'plus-cohort-14';
+const server = 'https://nomoreparties.co/v1';
+
+function putDataToServer(server, cohort, target, method, token, data) {
+  return fetch(`${server}/${cohort}/${target}`, {
+    method: method,
+    headers: {
+      authorization: token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then((res) => {
+    return res.json()
+  });
+}
+
+function fetchPageData() {
+  fetchDataFromServer(server, cohort, 'users/me', token)
+  .then((profile) => {
+    renderProfile(profile.name, profile.about, profile.avatar);
+    console.log(profile);
+    fetchDataFromServer(server, cohort, 'cards', token)
+    .then((res) => {
+      console.log(res);
+
+      addCards(res.reverse(), profile._id);
+    });
+  });
+};
+
+fetchPageData();
+
 function renderCard(container, card) {  
   container.insertBefore(card, container.firstChild);
 };
 
-function addCards(cards) {
+function addCards(cards, myId) {
   cards.forEach(card => {
-    const cardItem = createCard(card.name, card.link, card.likes.length);
+    const cardItem = createCard(card.name, card.link, card.likes.length, card.owner._id === myId);
     renderCard(cardsContainer, cardItem);
   });
 };
@@ -92,7 +93,7 @@ function submitAddCard(evt) {
     link: cardLinkInput.value
   })
   .then((res) => {
-    const card = createCard(res.name, res.link, res.likes.length);
+    const card = createCard(res.name, res.link, res.likes.length, true);
     renderCard(cardsContainer, card);
   });
 

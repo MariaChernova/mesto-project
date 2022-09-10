@@ -18,7 +18,7 @@ function openImage(title, link) {
   openPopup(cardPopup);
 }
 
-function createCard(title, link, likesNum) {
+function createCard(title, link, likesNum, owned) {
   const cardItem = cardTemplate.content.cloneNode(true);
 
   const cardsImage = cardItem.querySelector('.cards__image');
@@ -30,9 +30,13 @@ function createCard(title, link, likesNum) {
 
   const like = cardItem.querySelector('.cards__icon');
   like.addEventListener('click', cardLikeHandler);
-
+  
   const trash = cardItem.querySelector('.cards__trash-button');
-  trash.addEventListener('click', deleteCardHandler);
+  if (owned) {
+    trash.addEventListener('click', deleteCardHandler);
+  } else {
+    trash.remove();
+  }
 
   const image = cardItem.querySelector('.cards__image');
   image.addEventListener('click', () => openImage(title, link));
