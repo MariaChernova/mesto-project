@@ -18,7 +18,7 @@ function openImage(title, link) {
   openPopup(cardPopup);
 }
 
-function createCard(title, link) {
+function createCard(title, link, likesNum) {
   const cardItem = cardTemplate.content.cloneNode(true);
 
   const cardsImage = cardItem.querySelector('.cards__image');
@@ -36,6 +36,9 @@ function createCard(title, link) {
 
   const image = cardItem.querySelector('.cards__image');
   image.addEventListener('click', () => openImage(title, link));
+
+  const cardLikeCounter = cardItem.querySelector('.cards__like-counter');
+  cardLikeCounter.textContent = likesNum.toString();
   
   return cardItem;
 };

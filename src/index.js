@@ -79,7 +79,7 @@ function renderCard(container, card) {
 
 function addCards(cards) {
   cards.forEach(card => {
-    const cardItem = createCard(card.name, card.link);
+    const cardItem = createCard(card.name, card.link, card.likes.length);
     renderCard(cardsContainer, cardItem);
   });
 };
@@ -92,7 +92,7 @@ function submitAddCard(evt) {
     link: cardLinkInput.value
   })
   .then((res) => {
-    const card = createCard(res.name, res.link);
+    const card = createCard(res.name, res.link, res.likes.length);
     renderCard(cardsContainer, card);
   });
 
