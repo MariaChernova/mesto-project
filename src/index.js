@@ -1,3 +1,54 @@
+function doRequest(server, cohort, target, token) {
+  return fetch(`${server}/${cohort}/${target}`, {
+    headers: {
+      authorization: token
+    }
+  })
+  .then((res) => {
+    return res.json()
+  });
+}
+
+const token = '3a76beda-dcbb-4c59-817c-2a3fb7dba694';
+const cohort = 'plus-cohort-14';
+const server = 'https://nomoreparties.co/v1';
+
+// fetch('https://nomoreparties.co/v1/plus-cohort-14/users/me', {
+//   method: 'PATCH',
+//   headers: {
+//     authorization: token,
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify({
+//     name: 'Marie Skłodowska Curie',
+//     about: 'Physicist and Chemist'
+//   })
+// });
+
+// fetch('https://nomoreparties.co/v1/plus-cohort-14/cards', {
+//   method: 'POST',
+//   headers: {
+//     authorization: token,
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify({
+//     name: 'Муж',
+//     link: 'https://static.wikia.nocookie.net/walkingdead/images/2/26/Daryl111.png/revision/latest?cb=20220322035852&path-prefix=ru'
+//   })
+// });
+
+// doRequest(server, cohort, 'cards', token)
+// .then((res) => {
+//   console.log(res);
+// })
+
+doRequest(server, cohort, 'users/me', token)
+.then((res) => {
+  console.log(res);
+  renderProfile(res.name, res.about, res.avatar);
+});
+
+
 import './pages/index.css';
 import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
@@ -8,6 +59,7 @@ const popups = document.querySelectorAll('.popup');
 const profileEditPopup = document.querySelector('.popup-profile');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileEditForm = profileEditPopup.querySelector('.form');
+const profileImage = document.querySelector('.profile__image');
 
 const cardsContainer = document.querySelector('.cards');
 const cardAddPopup = document.querySelector('.popup-add');
@@ -90,6 +142,13 @@ function openProfileEditPopup() {
   profileSubtitleInput.value = profileSubtitleField.textContent;
   validateForm(validationConfig, profileEditPopup);
   openPopup(profileEditPopup);
+};
+
+function renderProfile(name, about, avatarUrl) {
+  profileNameField.textContent = name;
+  profileSubtitleField.textContent = about;
+  profileImage.src = avatarUrl;
+  profileImage.alt = name;
 };
 
 function submitProfileEdit(evt) {
