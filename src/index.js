@@ -1,4 +1,4 @@
-function doRequest(server, cohort, target, token) {
+function fetchDataFromServer(server, cohort, target, token) {
   return fetch(`${server}/${cohort}/${target}`, {
     headers: {
       authorization: token
@@ -13,6 +13,20 @@ const token = '3a76beda-dcbb-4c59-817c-2a3fb7dba694';
 const cohort = 'plus-cohort-14';
 const server = 'https://nomoreparties.co/v1';
 
+function putDataToServer(server, cohort, target, method, token, data) {
+  return fetch(`${server}/${cohort}/${target}`, {
+    method: method,
+    headers: {
+      authorization: token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then((res) => {
+    return res.json()
+  });
+}
+
 // fetch('https://nomoreparties.co/v1/plus-cohort-14/users/me', {
 //   method: 'PATCH',
 //   headers: {
@@ -24,6 +38,8 @@ const server = 'https://nomoreparties.co/v1';
 //     about: 'Physicist and Chemist'
 //   })
 // });
+
+
 
 // fetch('https://nomoreparties.co/v1/plus-cohort-14/cards', {
 //   method: 'POST',
@@ -37,17 +53,20 @@ const server = 'https://nomoreparties.co/v1';
 //   })
 // });
 
-// doRequest(server, cohort, 'cards', token)
-// .then((res) => {
-//   console.log(res);
-// })
-
-doRequest(server, cohort, 'users/me', token)
+fetchDataFromServer(server, cohort, 'cards', token)
 .then((res) => {
   console.log(res);
-  renderProfile(res.name, res.about, res.avatar);
-});
+  addCards(res);
+})
 
+function fetchProfileData() {
+  fetchDataFromServer(server, cohort, 'users/me', token)
+  .then((res) => {
+    renderProfile(res.name, res.about, res.avatar);
+  });
+};
+
+fetchProfileData();
 
 import './pages/index.css';
 import { createCard } from './components/card.js';
@@ -68,12 +87,12 @@ const cardAddForm = cardAddPopup.querySelector('.form');
 const cardTitleInput = document.querySelector('.form__input_title');
 const cardLinkInput = document.querySelector('.form__input_link');
 
-const elbrusImage = new URL('./images/elbrus.jpg', import.meta.url);
-const beluhaImage = new URL('./images/beluha.jpg', import.meta.url);
-const kazbegImage = new URL('./images/kazbeg.jpg', import.meta.url);
-const kljuchevskajaImage = new URL('./images/kljuchevskaja-sopka.jpg', import.meta.url);
-const koshtanImage = new URL('./images/koshtan-tau.jpg', import.meta.url);
-const munkuImage = new URL('./images/munku-sardyk.jpg', import.meta.url);
+// const elbrusImage = new URL('./images/elbrus.jpg', import.meta.url);
+// const beluhaImage = new URL('./images/beluha.jpg', import.meta.url);
+// const kazbegImage = new URL('./images/kazbeg.jpg', import.meta.url);
+// const kljuchevskajaImage = new URL('./images/kljuchevskaja-sopka.jpg', import.meta.url);
+// const koshtanImage = new URL('./images/koshtan-tau.jpg', import.meta.url);
+// const munkuImage = new URL('./images/munku-sardyk.jpg', import.meta.url);
 
 const profileNameField = document.querySelector('.profile__name');
 const profileSubtitleField = document.querySelector('.profile__subtitle');
@@ -87,32 +106,32 @@ const validationConfig = {
   inactiveButtonClass: 'form__button-inactive',
 }
 
-const defaultCards = [
-  {
-    title: 'Эльбрус',
-    link: elbrusImage
-  },
-  {
-    title: 'Белуха',
-    link: beluhaImage
-  },
-  {
-    title: 'Казбег',
-    link: kazbegImage
-  },
-  {
-    title: 'Ключевская сопка',
-    link: kljuchevskajaImage
-  },
-  {
-    title: 'Коштан - Тау',
-    link: koshtanImage
-  },
-  {
-    title: 'Мунку-Сардык',
-    link: munkuImage
-  }
-];
+// const defaultCards = [
+//   {
+//     title: 'Эльбрус',
+//     link: elbrusImage
+//   },
+//   {
+//     title: 'Белуха',
+//     link: beluhaImage
+//   },
+//   {
+//     title: 'Казбег',
+//     link: kazbegImage
+//   },
+//   {
+//     title: 'Ключевская сопка',
+//     link: kljuchevskajaImage
+//   },
+//   {
+//     title: 'Коштан - Тау',
+//     link: koshtanImage
+//   },
+//   {
+//     title: 'Мунку-Сардык',
+//     link: munkuImage
+//   }
+// ];
 
 function renderCard(container, card) {  
   container.insertBefore(card, container.firstChild);
@@ -120,7 +139,7 @@ function renderCard(container, card) {
 
 function addCards(cards) {
   cards.forEach(card => {
-    const cardItem = createCard(card.title, card.link);
+    const cardItem = createCard(card.name, card.link);
     renderCard(cardsContainer, cardItem);
   });
 }
@@ -153,8 +172,13 @@ function renderProfile(name, about, avatarUrl) {
 
 function submitProfileEdit(evt) {
   evt.preventDefault();
-  profileNameField.textContent = profileNameInput.value;
-  profileSubtitleField.textContent = profileSubtitleInput.value;
+  putDataToServer(server, cohort, 'users/me', 'PATCH', token, {
+    name: profileNameInput.value,
+    about: profileSubtitleInput.value
+  })
+  .then((res) => {
+    renderProfile(res.name, res.about, res.avatar);
+  });
   closePopup(profileEditPopup);
 };
 
@@ -163,7 +187,7 @@ function openAddCardPopup() {
   openPopup(cardAddPopup);
 };
 
-addCards(defaultCards);
+// addCards(defaultCards);
 
 enableValidation(validationConfig);
 
