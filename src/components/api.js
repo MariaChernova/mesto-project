@@ -6,17 +6,19 @@ const config = {
   }
 }
 
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json()
+  };
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
+
 function serverRequest(target, method) {
   return fetch(`${config.baseUrl}/${target}`, {
     method: method,
     headers: config.headers
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json()
-    };
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+  .then(checkResponse);
 }
 
 function serverRequestWithData(target, method, data) {
@@ -25,12 +27,7 @@ function serverRequestWithData(target, method, data) {
     headers: config.headers,
     body: JSON.stringify(data)
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json()
-    };
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+  .then(checkResponse);
 }
 
 function fetchProfileInfo() {
