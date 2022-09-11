@@ -12,7 +12,10 @@
   <main class="content">
     <section class="profile">
       <div class="profile__data">
+        <div class="profilee__avatar">
+        <button class="profile__image-edit" type="button" aria-label="Изменить"></button>
         <img class="profile__image" src="<%=require('./images/avatar.jpg')%>" alt="Портрет Жак-Ив Кусто">
+        </div>
         <div class="profile__text">
           <div class="profile__info">
             <h1 class="profile__name"></h1>
@@ -87,6 +90,20 @@
         <p class="popup-image__img-description"></p>
         <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
       </div>
+    </div>
+  </div>
+  <div class="popup popup-avatar">
+    <div class="overlay"></div>
+    <div class="popup__container">
+      <form class="form" name="popupForm" novalidate>
+        <h2 class="form__title">Обновить аватар</h2>
+        <label class="form__field">
+          <input id="avatar-url-input" type="url" name="link" class="form__input form__input_link" value="" placeholder="Ссылка на картинку" required>
+          <span class="form__input-error title-input-error"></span>
+        </label>
+        <button type="submit" value="Отправить на сервер" class="form__button form__button-inactive" aria-label="Сохранить">Сохранить</button>
+      </form>
+      <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
     </div>
   </div>
 </body>

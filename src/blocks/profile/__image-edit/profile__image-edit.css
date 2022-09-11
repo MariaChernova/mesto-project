@@ -1,0 +1,17 @@
+.profile__image-edit {
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  background-image: url(../../../images/icon/profile-edit.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+}
+
+.profile__image-edit:hover {
+  opacity: 1;
+}
