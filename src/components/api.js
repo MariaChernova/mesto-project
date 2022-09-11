@@ -12,7 +12,10 @@ function serverRequest(target, method) {
     headers: config.headers
   })
   .then((res) => {
-    return res.json()
+    if (res.ok) {
+      return res.json()
+    };
+    return Promise.reject(`Ошибка: ${res.status}`);
   });
 }
 
@@ -23,11 +26,11 @@ function serverRequestWithData(target, method, data) {
     body: JSON.stringify(data)
   })
   .then((res) => {
-    return res.json()
+    if (res.ok) {
+      return res.json()
+    };
+    return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .catch((err) => {
-    console.log(err);
-  });
 }
 
 function fetchProfileInfo() {

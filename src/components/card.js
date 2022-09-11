@@ -10,7 +10,7 @@ const cardPopupDescription = cardPopup.querySelector('.popup-image__img-descript
 function deleteCardHandler(evt) {
   const cardItem = evt.target.closest('.cards__item');
   sendCardDelete(cardItem.dataset.cardId)
-  .then ((res) => {
+  .then ((_) => {
     cardItem.remove();
   })
   .catch((err) => {
