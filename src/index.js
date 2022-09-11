@@ -10,6 +10,12 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 const profileEditForm = profileEditPopup.querySelector('.form');
 const profileImage = document.querySelector('.profile__image');
 
+const avatarEditPopup = document.querySelector('.popup-avatar');
+const avatarEditButton = document.querySelector('.profile__image-edit');
+const avatarEditInput = document.querySelector('.form__input_avatar-url');
+const avatarEditForm = avatarEditPopup.querySelector('.form');
+
+
 const cardsContainer = document.querySelector('.cards');
 const cardAddPopup = document.querySelector('.popup-add');
 const cardAddButton = document.querySelector('.profile__add-button');
@@ -134,6 +140,23 @@ function openAddCardPopup() {
   openPopup(cardAddPopup);
 };
 
+function openAvatarEditPopup() {
+  avatarEditInput.value = '';
+  openPopup(avatarEditPopup);
+};
+
+function submitAvatarEdit(evt) {
+  evt.preventDefault();
+  putDataToServer(server, cohort, 'users/me/avatar', 'PATCH', token, {
+    avatar: avatarEditInput.value
+  })
+  .then((res) => {
+    renderProfile(res.name, res.about, res.avatar);
+  });
+  closePopup(avatarEditPopup);
+}
+
+
 enableValidation(validationConfig);
 
 popups.forEach(popup => {
@@ -152,3 +175,6 @@ profileEditForm.addEventListener('submit', submitProfileEdit);
 
 cardAddButton.addEventListener('click', () => openAddCardPopup());
 cardAddForm.addEventListener('submit', submitAddCard);
+
+avatarEditButton.addEventListener('click', () => openAvatarEditPopup());
+avatarEditForm.addEventListener('submit', submitAvatarEdit);
