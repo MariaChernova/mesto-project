@@ -23,7 +23,7 @@ function openImage(title, link) {
   openPopup(cardPopup);
 }
 
-function createCard(title, link, likesNum, owned) {
+function createCard(title, link, likesNum, owned, liked) {
   const cardItem = cardTemplate.content.cloneNode(true);
 
   const cardsImage = cardItem.querySelector('.cards__image');
@@ -34,6 +34,9 @@ function createCard(title, link, likesNum, owned) {
   cardsLocation.textContent = title;
 
   const like = cardItem.querySelector('.cards__icon');
+  if (liked) {
+    like.classList.add('cards__icon_active');
+  }
   like.addEventListener('click', cardLikeHandler);
   
   const trash = cardItem.querySelector('.cards__trash-button');
@@ -52,7 +55,15 @@ function createCard(title, link, likesNum, owned) {
 };
 
 function cardLikeHandler(evt) {
-  evt.target.classList.toggle('cards__icon_active');
+  const cardItem = evt.target.closest('.cards__item');
+  const cardLikeCounter = cardItem.querySelector('.cards__like-counter');
+
+  const method = evt.target.classList.contains('cards__icon_active') ? 'DELETE' : 'PUT';
+  putDataToServer(`cards/likes/${cardItem.dataset.cardId}`, method, {})
+  .then ((res) => {
+    cardLikeCounter.textContent = res.likes.length.toString();
+    evt.target.classList.toggle('cards__icon_active');
+  });
 };
 
 export { createCard };

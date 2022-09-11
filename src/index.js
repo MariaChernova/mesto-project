@@ -60,7 +60,10 @@ function renderCard(container, card, cardId) {
 
 function addCards(cards, myId) {
   cards.forEach(card => {
-    const cardItem = createCard(card.name, card.link, card.likes.length, card.owner._id === myId);
+    const liked = card.likes.some((like) => {
+      return like._id === myId;
+    });
+    const cardItem = createCard(card.name, card.link, card.likes.length, card.owner._id === myId, liked);
     renderCard(cardsContainer, cardItem, card._id);
   });
 };
@@ -73,7 +76,7 @@ function submitAddCard(evt) {
     link: cardLinkInput.value
   })
   .then((res) => {
-    const card = createCard(res.name, res.link, res.likes.length, true);
+    const card = createCard(res.name, res.link, res.likes.length, true, false);
     renderCard(cardsContainer, card, res._id);
   });
 
@@ -129,7 +132,6 @@ function submitAvatarEdit(evt) {
   });
   closePopup(avatarEditPopup);
 }
-
 
 enableValidation(validationConfig);
 
