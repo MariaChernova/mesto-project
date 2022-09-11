@@ -2,7 +2,7 @@ import './pages/index.css';
 import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
 import { enableValidation, validateForm, validateFormButton } from './components/validate.js';
-import {serverRequest, serverRequestWithData} from './components/api.js';
+import { fetchCards, sendAvatar, fetchProfileInfo, sendCard, sendProfile } from './components/api.js';
 
 const popups = document.querySelectorAll('.popup');
 
@@ -34,7 +34,6 @@ const profileSubtitleField = document.querySelector('.profile__subtitle');
 const profileNameInput = document.querySelector('.form__input_name');
 const profileSubtitleInput = document.querySelector('.form__input_subtitle');
 
-
 const validationConfig = {
   formSelector: '.form',
   inputSelector: '.form__input',
@@ -42,15 +41,13 @@ const validationConfig = {
   inactiveButtonClass: 'form__button-inactive',
 }
 
-
 function fetchPageData() {
-  serverRequest('users/me', 'GET')
+  fetchProfileInfo()
   .then((profile) => {
     renderProfile(profile.name, profile.about, profile.avatar);
-    // console.log(profile);
-    serverRequest('cards', 'GET')
+
+    fetchCards()
     .then((res) => {
-      // console.log(res);
       addCards(res.reverse(), profile._id);
     })
     .catch((err) => {
@@ -84,10 +81,7 @@ function addCards(cards, myId) {
 function submitAddCard(evt) {
   evt.preventDefault();
 
-  serverRequestWithData('cards', 'POST', {
-    name: cardTitleInput.value,
-    link: cardLinkInput.value
-  })
+  sendCard(cardTitleInput.value, cardLinkInput.value)
   .then((res) => {
     const card = createCard(res.name, res.link, res.likes.length, true, false);
     renderCard(cardsContainer, card, res._id);
@@ -118,10 +112,7 @@ function renderProfile(name, about, avatarUrl) {
 
 function submitProfileEdit(evt) {
   evt.preventDefault();
-  serverRequestWithData('users/me', 'PATCH', {
-    name: profileNameInput.value,
-    about: profileSubtitleInput.value
-  })
+  sendProfile(profileNameInput.value, profileSubtitleInput.value)
   .then((res) => {
     renderProfile(res.name, res.about, res.avatar);
     closePopup(profileEditPopup);
@@ -135,24 +126,23 @@ function submitProfileEdit(evt) {
 };
 
 function openAddCardPopup() {
-  validateFormButton(validationConfig, cardAddPopup);
   addCardSubmitButton.textContent = addCardSubmitButtonText;
   cardTitleInput.value = '';
   cardLinkInput.value = '';
+  validateFormButton(validationConfig, cardAddPopup);
   openPopup(cardAddPopup);
 };
 
 function openAvatarEditPopup() {
   editAvatarSubmitButton.textContent = editAvatarSubmitButtonText;
   avatarEditInput.value = '';
+  validateFormButton(validationConfig, avatarEditPopup);
   openPopup(avatarEditPopup);
 };
 
 function submitAvatarEdit(evt) {
   evt.preventDefault();
-  serverRequestWithData('users/me/avatar', 'PATCH', {
-    avatar: avatarEditInput.value
-  })
+  sendAvatar(avatarEditInput.value)
   .then((res) => {
     renderProfile(res.name, res.about, res.avatar);
     closePopup(avatarEditPopup);

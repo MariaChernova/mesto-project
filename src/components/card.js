@@ -1,5 +1,5 @@
 import { openPopup } from './modal.js';
-import { serverRequest } from './api.js';
+import { sendCardDelete, sendLike } from './api.js';
 
 
 const cardTemplate = document.getElementById('card-template');
@@ -9,7 +9,7 @@ const cardPopupDescription = cardPopup.querySelector('.popup-image__img-descript
 
 function deleteCardHandler(evt) {
   const cardItem = evt.target.closest('.cards__item');
-  serverRequest(`cards/${cardItem.dataset.cardId}`, 'DELETE')
+  sendCardDelete(cardItem.dataset.cardId)
   .then ((res) => {
     cardItem.remove();
   })
@@ -61,8 +61,7 @@ function cardLikeHandler(evt) {
   const cardItem = evt.target.closest('.cards__item');
   const cardLikeCounter = cardItem.querySelector('.cards__like-counter');
 
-  const method = evt.target.classList.contains('cards__icon_active') ? 'DELETE' : 'PUT';
-  serverRequest(`cards/likes/${cardItem.dataset.cardId}`, method)
+  sendLike(cardItem.dataset.cardId, !evt.target.classList.contains('cards__icon_active'))
   .then ((res) => {
     cardLikeCounter.textContent = res.likes.length.toString();
     evt.target.classList.toggle('cards__icon_active');
