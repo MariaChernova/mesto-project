@@ -12,6 +12,9 @@ function deleteCardHandler(evt) {
   putDataToServer(`cards/${cardItem.dataset.cardId}`, 'DELETE', {})
   .then ((res) => {
     cardItem.remove();
+  })
+  .catch((err) => {
+    console.log(err);
   });
 }
 
@@ -63,6 +66,9 @@ function cardLikeHandler(evt) {
   .then ((res) => {
     cardLikeCounter.textContent = res.likes.length.toString();
     evt.target.classList.toggle('cards__icon_active');
+  })
+  .catch((err) => {
+    console.log(err);
   });
 };
 

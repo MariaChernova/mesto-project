@@ -24,6 +24,9 @@ function putDataToServer(target, method, data) {
   })
   .then((res) => {
     return res.json()
+  })
+  .catch((err) => {
+    console.log(err);
   });
 }
 
