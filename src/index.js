@@ -2,7 +2,7 @@ import './pages/index.css';
 import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
 import { enableValidation, validateForm, validateFormButton } from './components/validate.js';
-import {fetchDataFromServer, putDataToServer} from './components/utils.js';
+import {serverRequest, serverRequestWithData} from './components/api.js';
 
 const popups = document.querySelectorAll('.popup');
 
@@ -44,11 +44,11 @@ const validationConfig = {
 
 
 function fetchPageData() {
-  fetchDataFromServer('users/me')
+  serverRequest('users/me', 'GET')
   .then((profile) => {
     renderProfile(profile.name, profile.about, profile.avatar);
     // console.log(profile);
-    fetchDataFromServer('cards')
+    serverRequest('cards', 'GET')
     .then((res) => {
       // console.log(res);
       addCards(res.reverse(), profile._id);
@@ -84,7 +84,7 @@ function addCards(cards, myId) {
 function submitAddCard(evt) {
   evt.preventDefault();
 
-  putDataToServer('cards', 'POST', {
+  serverRequestWithData('cards', 'POST', {
     name: cardTitleInput.value,
     link: cardLinkInput.value
   })
@@ -118,7 +118,7 @@ function renderProfile(name, about, avatarUrl) {
 
 function submitProfileEdit(evt) {
   evt.preventDefault();
-  putDataToServer('users/me', 'PATCH', {
+  serverRequestWithData('users/me', 'PATCH', {
     name: profileNameInput.value,
     about: profileSubtitleInput.value
   })
@@ -150,7 +150,7 @@ function openAvatarEditPopup() {
 
 function submitAvatarEdit(evt) {
   evt.preventDefault();
-  putDataToServer('users/me/avatar', 'PATCH', {
+  serverRequestWithData('users/me/avatar', 'PATCH', {
     avatar: avatarEditInput.value
   })
   .then((res) => {

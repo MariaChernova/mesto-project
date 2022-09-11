@@ -2,8 +2,9 @@ const token = '3a76beda-dcbb-4c59-817c-2a3fb7dba694';
 const cohort = 'plus-cohort-14';
 const server = 'https://nomoreparties.co/v1';
 
-function fetchDataFromServer(target) {
+function serverRequest(target, method) {
   return fetch(`${server}/${cohort}/${target}`, {
+    method: method,
     headers: {
       authorization: token
     }
@@ -13,7 +14,7 @@ function fetchDataFromServer(target) {
   });
 }
 
-function putDataToServer(target, method, data) {
+function serverRequestWithData(target, method, data) {
   return fetch(`${server}/${cohort}/${target}`, {
     method: method,
     headers: {
@@ -30,4 +31,4 @@ function putDataToServer(target, method, data) {
   });
 }
 
-export {fetchDataFromServer, putDataToServer};
+export {serverRequest, serverRequestWithData};
