@@ -2,6 +2,7 @@ import './pages/index.css';
 import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
 import { enableValidation, validateForm, validateFormButton } from './components/validate.js';
+import {fetchDataFromServer, putDataToServer} from './components/utils.js';
 
 const popups = document.querySelectorAll('.popup');
 
@@ -35,44 +36,15 @@ const validationConfig = {
   inactiveButtonClass: 'form__button-inactive',
 }
 
-function fetchDataFromServer(server, cohort, target, token) {
-  return fetch(`${server}/${cohort}/${target}`, {
-    headers: {
-      authorization: token
-    }
-  })
-  .then((res) => {
-    return res.json()
-  });
-}
-
-const token = '3a76beda-dcbb-4c59-817c-2a3fb7dba694';
-const cohort = 'plus-cohort-14';
-const server = 'https://nomoreparties.co/v1';
-
-function putDataToServer(server, cohort, target, method, token, data) {
-  return fetch(`${server}/${cohort}/${target}`, {
-    method: method,
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  .then((res) => {
-    return res.json()
-  });
-}
 
 function fetchPageData() {
-  fetchDataFromServer(server, cohort, 'users/me', token)
+  fetchDataFromServer('users/me')
   .then((profile) => {
     renderProfile(profile.name, profile.about, profile.avatar);
-    console.log(profile);
-    fetchDataFromServer(server, cohort, 'cards', token)
+    // console.log(profile);
+    fetchDataFromServer('cards')
     .then((res) => {
-      console.log(res);
-
+      // console.log(res);
       addCards(res.reverse(), profile._id);
     });
   });
@@ -80,27 +52,29 @@ function fetchPageData() {
 
 fetchPageData();
 
-function renderCard(container, card) {  
+function renderCard(container, card, cardId) {  
   container.insertBefore(card, container.firstChild);
+  // data-* attributes can not be set to DOM-elements without parent it seems.
+  container.firstElementChild.dataset.cardId = cardId;
 };
 
 function addCards(cards, myId) {
   cards.forEach(card => {
     const cardItem = createCard(card.name, card.link, card.likes.length, card.owner._id === myId);
-    renderCard(cardsContainer, cardItem);
+    renderCard(cardsContainer, cardItem, card._id);
   });
 };
 
 function submitAddCard(evt) {
   evt.preventDefault();
 
-  putDataToServer(server, cohort, 'cards', 'POST', token, {
+  putDataToServer('cards', 'POST', {
     name: cardTitleInput.value,
     link: cardLinkInput.value
   })
   .then((res) => {
     const card = createCard(res.name, res.link, res.likes.length, true);
-    renderCard(cardsContainer, card);
+    renderCard(cardsContainer, card, res._id);
   });
 
   cardTitleInput.value = '';
@@ -125,7 +99,7 @@ function renderProfile(name, about, avatarUrl) {
 
 function submitProfileEdit(evt) {
   evt.preventDefault();
-  putDataToServer(server, cohort, 'users/me', 'PATCH', token, {
+  putDataToServer('users/me', 'PATCH', {
     name: profileNameInput.value,
     about: profileSubtitleInput.value
   })
@@ -147,7 +121,7 @@ function openAvatarEditPopup() {
 
 function submitAvatarEdit(evt) {
   evt.preventDefault();
-  putDataToServer(server, cohort, 'users/me/avatar', 'PATCH', token, {
+  putDataToServer('users/me/avatar', 'PATCH', {
     avatar: avatarEditInput.value
   })
   .then((res) => {
