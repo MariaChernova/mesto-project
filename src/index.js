@@ -42,22 +42,15 @@ const validationConfig = {
 }
 
 function fetchPageData() {
-  fetchProfileInfo()
-  .then((profile) => {
+  Promise.all([fetchProfileInfo(), fetchCards()])
+  .then(([profile, cards]) => {
     renderProfile(profile.name, profile.about, profile.avatar);
-
-    fetchCards()
-    .then((res) => {
-      addCards(res.reverse(), profile._id);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    addCards(cards.reverse(), profile._id);
   })
-  .catch((err) => {
+  .catch(err => {
     console.log(err);
   });
-};
+}
 
 fetchPageData();
 
