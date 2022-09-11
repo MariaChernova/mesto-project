@@ -81,6 +81,14 @@ function addCards(cards, myId) {
   });
 };
 
+function openAddCardPopup() {
+  addCardSubmitButton.textContent = addCardSubmitButtonText;
+  cardTitleInput.value = '';
+  cardLinkInput.value = '';
+  validateFormButton(validationConfig, cardAddPopup);
+  openPopup(cardAddPopup);
+};
+
 function submitAddCard(evt) {
   evt.preventDefault();
 
@@ -88,12 +96,13 @@ function submitAddCard(evt) {
   .then((res) => {
     const card = createCard(res.name, res.link, res.likes.length, true, false);
     renderCard(cardsContainer, card, res._id);
+    closePopup(cardAddPopup);
   })
   .catch((err) => {
     console.log(err);
   })
   .finally(() => {
-    closePopup(cardAddPopup);
+    addCardSubmitButton.textContent = addCardSubmitButtonText;
   });
 
   renderLoading(addCardSubmitButton);
@@ -119,24 +128,19 @@ function submitProfileEdit(evt) {
   sendProfile(profileNameInput.value, profileSubtitleInput.value)
   .then((res) => {
     renderProfile(res.name, res.about, res.avatar);
+    closePopup(profileEditPopup);
   })
   .catch((err) => {
     console.log(err);
   })
   .finally(() => {
-    closePopup(profileEditPopup);
+    editProfileSubmitButton.textContent = editProfileSubmitButtonText;
   });
   
   renderLoading(editProfileSubmitButton);
 };
 
-function openAddCardPopup() {
-  addCardSubmitButton.textContent = addCardSubmitButtonText;
-  cardTitleInput.value = '';
-  cardLinkInput.value = '';
-  validateFormButton(validationConfig, cardAddPopup);
-  openPopup(cardAddPopup);
-};
+
 
 function openAvatarEditPopup() {
   editAvatarSubmitButton.textContent = editAvatarSubmitButtonText;
@@ -150,12 +154,13 @@ function submitAvatarEdit(evt) {
   sendAvatar(avatarEditInput.value)
   .then((res) => {
     renderProfile(res.name, res.about, res.avatar);
+    closePopup(avatarEditPopup);
   })
   .catch((err) => {
     console.log(err);
   })
   .finally(() => {
-    closePopup(avatarEditPopup);
+    editAvatarSubmitButton.textContent = editAvatarSubmitButtonText;
   });
   renderLoading(editAvatarSubmitButton);
 }

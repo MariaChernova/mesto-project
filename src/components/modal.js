@@ -1,7 +1,7 @@
 function openPopup(modal) {
   modal.classList.add('popup_opened');
   window.onkeydown = (evt) => {
-    if (evt.keyCode == 27) {
+    if (evt.keyCode === 'Escape') {
       closePopup(modal);
     }
   };
