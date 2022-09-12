@@ -75,7 +75,6 @@ function addCards(cards, myId) {
 };
 
 function openAddCardPopup() {
-  addCardSubmitButton.textContent = addCardSubmitButtonText;
   cardTitleInput.value = '';
   cardLinkInput.value = '';
   validateFormButton(validationConfig, cardAddPopup);
@@ -102,7 +101,6 @@ function submitAddCard(evt) {
 };
 
 function openProfileEditPopup() {
-  editProfileSubmitButton.textContent = editProfileSubmitButtonText;
   profileNameInput.value = profileNameField.textContent;
   profileSubtitleInput.value = profileSubtitleField.textContent;
   validateForm(validationConfig, profileEditPopup);
@@ -133,10 +131,7 @@ function submitProfileEdit(evt) {
   renderLoading(editProfileSubmitButton);
 };
 
-
-
 function openAvatarEditPopup() {
-  editAvatarSubmitButton.textContent = editAvatarSubmitButtonText;
   avatarEditInput.value = '';
   validateFormButton(validationConfig, avatarEditPopup);
   openPopup(avatarEditPopup);
